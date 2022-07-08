@@ -15,6 +15,8 @@ namespace EcsTestProject.Systems
         private EcsPoolInject<PlayerTag> _playerTagPool = default;
         private EcsPoolInject<TriggerableComp> _triggerableCompPool = default;
         private EcsPoolInject<CanTriggerTag> _canTriggerTagPool = default;
+        private EcsPoolInject<LinkByColorComp> _linkByColorCompPool = default;
+        private EcsPoolInject<LinkedObserverComp> _linkedObserverCompPool = default;
         
         private EcsCustomInject<GameData> _levelData = default;
 
@@ -75,6 +77,10 @@ namespace EcsTestProject.Systems
                 {
                     var doorEnt = _world.Value.NewEntity();
                     _positionInfoCompPool.Value.Add(doorEnt);
+                    _linkedObserverCompPool.Value.Add(doorEnt);
+
+                    ref LinkByColorComp linkByColorComp = ref _linkByColorCompPool.Value.Add(doorEnt);
+                    linkByColorComp.ColorID = element.ColorID;
                     
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(doorEnt);
                     spawnComp.Prefab = element.ElementTf.gameObject;
@@ -93,6 +99,9 @@ namespace EcsTestProject.Systems
                     var buttonEnt = _world.Value.NewEntity();
                     _positionInfoCompPool.Value.Add(buttonEnt);
                     _triggerableCompPool.Value.Add(buttonEnt);
+                    
+                    ref LinkByColorComp linkByColorComp = ref _linkByColorCompPool.Value.Add(buttonEnt);
+                    linkByColorComp.ColorID = element.ColorID;
                     
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(buttonEnt);
                     spawnComp.Prefab = element.ElementTf.gameObject;
