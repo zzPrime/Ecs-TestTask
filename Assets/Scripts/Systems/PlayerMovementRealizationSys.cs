@@ -1,3 +1,4 @@
+using System.Numerics;
 using EcsTestProject.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -7,45 +8,29 @@ namespace EcsTestProject.Systems
     internal class PlayerMovementRealizationSys : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
-        private EcsFilterInject<Inc<MouseInputComp>> _mouseInputCompFilter = default;
-        private EcsFilterInject<Inc<PlayerTag, MovableComp>> _playerTagFilter = default;
-        
+        private EcsFilterInject<Inc<PlayerTag, MovableComp>> _playerFilter = default;
         private EcsPoolInject<MoveToTargetComp> _moveToTargetPool = default;
-        
+
         public void Run(EcsSystems systems)
         {
-            UpdateTargetPosWhenMouseRaycasting();
+            UpdatePositionByLerpLogic();
         }
 
-        private void UpdateTargetPosWhenMouseRaycasting()
+        private void UpdatePositionByLerpLogic()
         {
-            foreach (var playerEnt in _playerTagFilter.Value)
+            foreach (var playerEnt in _playerFilter.Value)
             {
-                foreach (var mouseInpEnt in _mouseInputCompFilter.Value)
-                {
-                    ref MouseInputComp mouseComp = ref _mouseInputCompFilter.Pools.Inc1.Get(mouseInpEnt);
+                ref MovableComp movableComp = ref _playerFilter.Pools.Inc2.Get(playerEnt);
+                MoveToTargetComp targetComp = _moveToTargetPool.Value.Get(playerEnt);
 
-                    if (mouseComp.IsPressed && mouseComp.IsRaycasting)
-                    {
-                        TryAddMoveToTargetComp(playerEnt);
-                        UpdateTargetPosition(playerEnt, mouseComp);
-                    }
-                }
+                Vector3 currentPos = movableComp.Position;
+                Vector3 targetPos = targetComp.TargetPosition;
+                
+                float t = Vector3.Distance(targetPos ,currentPos) / 0.5f; //TODO Set speed from data
+                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, 1/t * 0.01f);
+
+                movableComp.Position = newPos;
             }
-        }
-
-        private void TryAddMoveToTargetComp(int playerEnt)
-        {
-            if (!_moveToTargetPool.Value.Has(playerEnt))
-            {
-                _moveToTargetPool.Value.Add(playerEnt);
-            }
-        }
-
-        private void UpdateTargetPosition(int playerEnt, MouseInputComp mouseComp)
-        {
-            ref MoveToTargetComp moveToTargetComp = ref _moveToTargetPool.Value.Get(playerEnt);
-            moveToTargetComp.TargetPosition = mouseComp.LastPressedPos;
         }
     }
 }
