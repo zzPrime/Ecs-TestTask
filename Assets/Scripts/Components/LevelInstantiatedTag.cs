@@ -1,6 +1,6 @@
 namespace EcsTestProject.Components
 {
-    internal struct InstantiateLevelRequireTag
+    internal struct LevelInstantiatedTag
     {
     }
 }

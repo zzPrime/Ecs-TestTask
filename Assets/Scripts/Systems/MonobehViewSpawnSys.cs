@@ -25,6 +25,8 @@ namespace EcsTestProject.Systems
                 Quaternion spawnRot = spawnComp.SpawnRotation;
 
                 GameObject spawnedGO = GameObject.Instantiate(prefab, spawnPos, spawnRot);
+                spawnedGO.gameObject.SetActive(true);
+                
                 ref MonobehViewComp monobehViewComp = ref monobehViewCompPool.Value.Add(spawningEnt);
                 monobehViewComp.ViewTf = spawnedGO.transform;
                 
