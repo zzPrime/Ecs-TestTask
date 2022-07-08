@@ -63,12 +63,26 @@ namespace EcsTestProject
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
 #endif
+                // Initialization
                 .Add(new LevelInitializeSys())
                 .Add(new MonobehViewSpawnSys())
+                
+                // Services
                 .Add(new UnityMouseInputSys())
+                
+                // Player
                 .Add(new SetPlayerTargetSys())
                 .Add(new PlayerMovementRealizationSys())
+                
+                // Buttons
                 .Add(new CheckTriggersStateSys())
+                .Add(new SetLinkedObserverStateSys())
+                
+                // Doors
+                .Add(new SetDoorsTargetSys())
+                .Add(new DoorsMovementRealizationSys())
+                
+                // MonobehViews
                 .Add(new MonobehViewPosUpdateSys())
                 .Inject(_gameData)
                 .Init();
