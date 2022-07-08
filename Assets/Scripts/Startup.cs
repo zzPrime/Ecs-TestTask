@@ -68,6 +68,7 @@ namespace EcsTestProject
                 .Add(new UnityMouseInputSys())
                 .Add(new SetPlayerTargetSys())
                 .Add(new PlayerMovementRealizationSys())
+                .Add(new CheckTriggersStateSys())
                 .Add(new MonobehViewPosUpdateSys())
                 .Inject(_gameData)
                 .Init();

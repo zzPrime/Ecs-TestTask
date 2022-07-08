@@ -13,6 +13,8 @@ namespace EcsTestProject.Systems
         private EcsPoolInject<SpawnMbViewComp> _spawnMbViewCompPool = default;
         private EcsPoolInject<PositionInfoComp> _positionInfoCompPool = default;
         private EcsPoolInject<PlayerTag> _playerTagPool = default;
+        private EcsPoolInject<TriggerableComp> _triggerableCompPool = default;
+        private EcsPoolInject<CanTriggerTag> _canTriggerTagPool = default;
         
         private EcsCustomInject<GameData> _levelData = default;
 
@@ -53,15 +55,14 @@ namespace EcsTestProject.Systems
                 if (element.LevelElementType == LevelElementType.PlayerSpawn)
                 {
                     var playerEnt = _world.Value.NewEntity();
+                    _playerTagPool.Value.Add(playerEnt);
+                    _positionInfoCompPool.Value.Add(playerEnt);
+                    _canTriggerTagPool.Value.Add(playerEnt);
                     
-                    //TODO Add Data components
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(playerEnt);
                     spawnComp.Prefab = _levelData.Value.PlayerView;
                     spawnComp.SpawnPosition = element.ElementTf.position;
                     spawnComp.SpawnRotation = element.ElementTf.rotation;
-
-                    _playerTagPool.Value.Add(playerEnt);
-                    _positionInfoCompPool.Value.Add(playerEnt);
                 }
             }
         }
@@ -75,8 +76,6 @@ namespace EcsTestProject.Systems
                     var doorEnt = _world.Value.NewEntity();
                     _positionInfoCompPool.Value.Add(doorEnt);
                     
-                    //TODO Add Data components
-
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(doorEnt);
                     spawnComp.Prefab = element.ElementTf.gameObject;
                     spawnComp.SpawnPosition = element.ElementTf.position;
@@ -93,13 +92,13 @@ namespace EcsTestProject.Systems
                 {
                     var buttonEnt = _world.Value.NewEntity();
                     _positionInfoCompPool.Value.Add(buttonEnt);
+                    _triggerableCompPool.Value.Add(buttonEnt);
                     
-                    //TODO Add Data components
-
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(buttonEnt);
                     spawnComp.Prefab = element.ElementTf.gameObject;
                     spawnComp.SpawnPosition = element.ElementTf.position;
                     spawnComp.SpawnRotation = element.ElementTf.rotation;
+                    
                 }
             }
         }
