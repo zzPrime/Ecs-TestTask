@@ -6,5 +6,6 @@ namespace EcsTestProject.Components
     {
         public Vector3 LastPressedPos;
         public bool IsPressed;
+        public bool IsRaycasting;
     }
 }

@@ -43,6 +43,11 @@ namespace EcsTestProject.Systems
                         var hitPosNumVec = new System.Numerics.Vector3(hitPos.x, hitPos.y, hitPos.z);
 
                         inputComp.LastPressedPos = hitPosNumVec;
+                        inputComp.IsRaycasting = true;
+                    }
+                    else
+                    {
+                        inputComp.IsRaycasting = false;
                     }
 
                     inputComp.IsPressed = true;

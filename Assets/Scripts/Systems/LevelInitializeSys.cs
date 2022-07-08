@@ -13,6 +13,7 @@ namespace EcsTestProject.Systems
         private EcsPoolInject<SpawnMbViewComp> _spawnMbViewCompPool = default;
         private EcsPoolInject<MovableComp> _movableCompPool = default;
         private EcsPoolInject<NonMovableComp> _nonMovableCompPool = default;
+        private EcsPoolInject<PlayerTag> _playerTagPool = default;
         
         private EcsCustomInject<GameData> _levelData = default;
 
@@ -59,6 +60,8 @@ namespace EcsTestProject.Systems
                     spawnComp.Prefab = _levelData.Value.PlayerView;
                     spawnComp.SpawnPosition = element.ElementTf.position;
                     spawnComp.SpawnRotation = element.ElementTf.rotation;
+
+                    _playerTagPool.Value.Add(playerEnt);
                 }
             }
         }
