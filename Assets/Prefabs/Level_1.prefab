@@ -501,18 +501,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _elementData:
-  - ColorID: 0
-    LevelElementType: 0
+  - ColorID: 1
+    LevelElementType: 1
     ElementTf: {fileID: 3225580406671949756}
-  - ColorID: 0
-    LevelElementType: 1
+  - ColorID: 1
+    LevelElementType: 2
     ElementTf: {fileID: 3225580407363900538}
-  - ColorID: 1
-    LevelElementType: 1
+  - ColorID: 2
+    LevelElementType: 2
     ElementTf: {fileID: 3225580406000115569}
-  - ColorID: 1
-    LevelElementType: 0
+  - ColorID: 2
+    LevelElementType: 1
     ElementTf: {fileID: 3225580406393445251}
+  - ColorID: 0
+    LevelElementType: 0
+    ElementTf: {fileID: 3225580406807574272}
 --- !u!1 &3225580406393445248
 GameObject:
   m_ObjectHideFlags: 0

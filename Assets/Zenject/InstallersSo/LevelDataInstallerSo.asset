@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4d9ed9e88515044a77fc62c9d02dff, type: 3}
   m_Name: LevelDataInstallerSo
   m_EditorClassIdentifier: 
+  GameData: {fileID: 11400000, guid: 5d622242e648c844ab69fa1f20a4e580, type: 2}
