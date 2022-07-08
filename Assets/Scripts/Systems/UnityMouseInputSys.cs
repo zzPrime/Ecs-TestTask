@@ -31,23 +31,19 @@ namespace EcsTestProject.Systems
             {
                 ref MouseInputComp inputComp = ref _mouseInputCompFilter.Pools.Inc1.Get(mouseInputEnt);
 
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                
+                SetRaycastingState(ray, ref inputComp);
+                
                 if (Input.GetKey(KeyCode.Mouse0))
                 {
-                    RaycastHit hit;
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                    
                     if (Physics.Raycast(ray, out hit))
                     {
                         Vector3 hitPos = hit.point;
                         var hitPosNumVec = new System.Numerics.Vector3(hitPos.x, hitPos.y, hitPos.z);
 
                         inputComp.LastPressedPos = hitPosNumVec;
-                        inputComp.IsRaycasting = true;
-                    }
-                    else
-                    {
-                        inputComp.IsRaycasting = false;
                     }
 
                     inputComp.IsPressed = true;
@@ -57,6 +53,12 @@ namespace EcsTestProject.Systems
                     inputComp.IsPressed = false;
                 }
             }
+        }
+
+        private static void SetRaycastingState(Ray ray, ref MouseInputComp inputComp)
+        {
+            RaycastHit hit;
+            inputComp.IsRaycasting = Physics.Raycast(ray, out hit);
         }
     }
 }

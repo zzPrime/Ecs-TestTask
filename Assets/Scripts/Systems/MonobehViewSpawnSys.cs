@@ -8,6 +8,7 @@ namespace EcsTestProject.Systems
     internal class MonobehViewSpawnSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<SpawnMbViewComp>> _spawnMbViewCompFilter = default;
+        private EcsPoolInject<PositionInfoComp> _positionInfoCompPool = default;
         private EcsPoolInject<MonobehViewComp> monobehViewCompPool = default;
         
         public void Run(EcsSystems systems)
@@ -29,7 +30,13 @@ namespace EcsTestProject.Systems
                 
                 ref MonobehViewComp monobehViewComp = ref monobehViewCompPool.Value.Add(spawningEnt);
                 monobehViewComp.ViewTf = spawnedGO.transform;
-                
+
+                if (_positionInfoCompPool.Value.Has(spawningEnt))
+                {
+                    ref PositionInfoComp positionInfoComp = ref _positionInfoCompPool.Value.Get(spawningEnt);
+                    positionInfoComp.Position = Utils.GetNumericsVec3FromUnityVec3(spawnPos);
+                    positionInfoComp.Rotation = Utils.GetNumericsQuatFromUnityQuat(spawnRot);
+                }
                 //TODO Add if animation comp persist
 
                 _spawnMbViewCompFilter.Pools.Inc1.Del(spawningEnt);

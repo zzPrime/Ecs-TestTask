@@ -11,8 +11,7 @@ namespace EcsTestProject.Systems
         private EcsFilterInject<Inc<LevelInstantiatedTag>> _instantiateRequreTagFilter = default;
         
         private EcsPoolInject<SpawnMbViewComp> _spawnMbViewCompPool = default;
-        private EcsPoolInject<MovableComp> _movableCompPool = default;
-        private EcsPoolInject<NonMovableComp> _nonMovableCompPool = default;
+        private EcsPoolInject<PositionInfoComp> _positionInfoCompPool = default;
         private EcsPoolInject<PlayerTag> _playerTagPool = default;
         
         private EcsCustomInject<GameData> _levelData = default;
@@ -62,6 +61,7 @@ namespace EcsTestProject.Systems
                     spawnComp.SpawnRotation = element.ElementTf.rotation;
 
                     _playerTagPool.Value.Add(playerEnt);
+                    _positionInfoCompPool.Value.Add(playerEnt);
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace EcsTestProject.Systems
                 if (element.LevelElementType == LevelElementType.Door)
                 {
                     var doorEnt = _world.Value.NewEntity();
-                    _movableCompPool.Value.Add(doorEnt);
+                    _positionInfoCompPool.Value.Add(doorEnt);
                     
                     //TODO Add Data components
 
@@ -92,7 +92,7 @@ namespace EcsTestProject.Systems
                 if (element.LevelElementType == LevelElementType.Button)
                 {
                     var buttonEnt = _world.Value.NewEntity();
-                    _nonMovableCompPool.Value.Add(buttonEnt);
+                    _positionInfoCompPool.Value.Add(buttonEnt);
                     
                     //TODO Add Data components
 

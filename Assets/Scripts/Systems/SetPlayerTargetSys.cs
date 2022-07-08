@@ -8,7 +8,7 @@ namespace EcsTestProject.Systems
     {
         private EcsWorldInject _world = default;
         private EcsFilterInject<Inc<MouseInputComp>> _mouseInputCompFilter = default;
-        private EcsFilterInject<Inc<PlayerTag, MovableComp>> _playerFilter = default;
+        private EcsFilterInject<Inc<PlayerTag, PositionInfoComp>> _playerFilter = default;
         
         private EcsPoolInject<MoveToTargetComp> _moveToTargetPool = default;
         
