@@ -11,6 +11,14 @@ namespace EcsTestProject
         private EcsSystems _systems;
         private EcsSystems _fixedUpdSystems;
 
+        private GameData _gameData;
+        
+        [Inject]
+        private void Construct(GameData gameData)
+        {
+            _gameData = gameData;
+        }
+
         public void Initialize()
         {
             _world = new EcsWorld();
