@@ -65,6 +65,7 @@ namespace EcsTestProject
 #endif
                 .Add(new LevelInitializeSys())
                 .Add(new MonobehViewSpawnSys())
+                .Add(new UnityMouseInputSys())
                 .Inject(_gameData)
                 .Init();
         }
