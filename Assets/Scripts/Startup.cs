@@ -1,6 +1,7 @@
 using System;
 using EcsTestProject.Systems;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.UnityEditor;
 using Zenject;
 
@@ -61,8 +62,10 @@ namespace EcsTestProject
             _systems
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
-                .Add(new LevelInitializeSys())
 #endif
+                .Add(new LevelInitializeSys())
+                .Add(new MonobehViewSpawnSys())
+                .Inject(_gameData)
                 .Init();
         }
 
