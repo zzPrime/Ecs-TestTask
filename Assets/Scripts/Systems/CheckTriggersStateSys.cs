@@ -9,6 +9,7 @@ namespace EcsTestProject.Systems
     {
         private EcsFilterInject<Inc<TriggerableComp, PositionInfoComp>, Exc<CanTriggerTag>> _triggerableCompFilter = default;
         private EcsFilterInject<Inc<CanTriggerTag, PositionInfoComp>, Exc<TriggerableComp>> _canTriggerCompFilter = default;
+        private EcsCustomInject<GameData> _gameData = default;
 
         public void Run(EcsSystems systems)
         {
@@ -28,7 +29,9 @@ namespace EcsTestProject.Systems
                     ref PositionInfoComp canTriggerPosComp = ref _canTriggerCompFilter.Pools.Inc2.Get(canTriggerEnt);
 
                     var distance = Vector3.DistanceSquared(triggerablePosComp.Position, canTriggerPosComp.Position);
-                    if (distance <= 3f) //TODO Get from data
+                    var triggerDistance = _gameData.Value.GameSettings.TriggerDistance;
+                    
+                    if (distance <= triggerDistance)
                     {
                         triggered = true;
                         break;

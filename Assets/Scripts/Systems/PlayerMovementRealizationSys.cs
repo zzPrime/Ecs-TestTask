@@ -8,6 +8,7 @@ namespace EcsTestProject.Systems
     internal class PlayerMovementRealizationSys : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
+        private EcsCustomInject<GameData> _gameData = default;
         private EcsFilterInject<Inc<PlayerTag, PositionInfoComp, MoveToTargetComp>> _playerFilter = default;
 
         public void Run(EcsSystems systems)
@@ -22,11 +23,14 @@ namespace EcsTestProject.Systems
                 ref PositionInfoComp positionInfoComp = ref _playerFilter.Pools.Inc2.Get(playerEnt);
                 MoveToTargetComp targetComp = _playerFilter.Pools.Inc3.Get(playerEnt);
 
-                Vector3 currentPos = positionInfoComp.Position;
-                Vector3 targetPos = targetComp.TargetPosition + Vector3.UnitY * 1f; //TODO Get height
+                float playerSpeed = _gameData.Value.GameSettings.PlayerMovementSpeed;
+                float deltaTime = _gameData.Value.GameSettings.DeltaTime;
                 
-                float t = Vector3.Distance(targetPos ,currentPos) / 0.5f; //TODO Set speed from data
-                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, 1/t * 0.01f);
+                Vector3 currentPos = positionInfoComp.Position;
+                Vector3 targetPos = targetComp.TargetPosition;
+                
+                float t = Vector3.Distance(targetPos ,currentPos) / playerSpeed;
+                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, 1/t * deltaTime);
 
                 positionInfoComp.Position = newPos;
             }

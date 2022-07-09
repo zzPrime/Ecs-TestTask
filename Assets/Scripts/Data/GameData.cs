@@ -8,4 +8,5 @@ public class GameData : ScriptableObject
 {
     public LevelView LevelView;
     public GameObject PlayerView;
+    public GameSettings GameSettings;
 }

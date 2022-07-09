@@ -8,8 +8,8 @@ namespace EcsTestProject.Systems
     internal class SetDoorsTargetSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<PositionInfoComp, LinkedObserverComp>, Exc<TriggerableComp>> _doorsFilter = default;
-
         private EcsPoolInject<MoveToTargetComp> _moveToTargetCompPool = default;
+        private EcsCustomInject<GameData> _gameData = default;
 
         public void Run(EcsSystems systems)
         {
@@ -28,8 +28,9 @@ namespace EcsTestProject.Systems
                     {
                         ref MoveToTargetComp moveToTargetComp = ref _moveToTargetCompPool.Value.Add(doorEnt);
                         Vector3 currPos = _doorsFilter.Pools.Inc1.Get(doorEnt).Position;
+                        float doorHeight = _gameData.Value.GameSettings.DoorHeight;
                         Vector3 targetPos =
-                            currPos - Vector3.UnitY * currPos.Y - Vector3.UnitY * 0.5f; //TODO Get from data
+                            currPos - Vector3.UnitY - Vector3.UnitY * doorHeight;
 
                         moveToTargetComp.TargetPosition = targetPos;
                     }

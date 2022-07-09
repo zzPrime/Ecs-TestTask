@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelView: {fileID: 5093966313462493504, guid: 19378ae927b5f37429f02d38410a23a8, type: 3}
   PlayerView: {fileID: 2777904324792642730, guid: e0de6fa1d6b479b498d3de943e6a7866, type: 3}
+  GameSettings: {fileID: 11400000, guid: 23759cb0952365640bf7ec736eaa08ed, type: 2}

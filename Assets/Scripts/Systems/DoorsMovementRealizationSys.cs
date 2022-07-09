@@ -8,6 +8,7 @@ namespace EcsTestProject.Systems
     internal class DoorsMovementRealizationSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<PositionInfoComp, MoveToTargetComp, LinkedObserverComp>, Exc<PlayerTag>> _doorsFilter = default;
+        private EcsCustomInject<GameData> _gameData = default;
 
         public void Run(EcsSystems systems)
         {
@@ -22,10 +23,13 @@ namespace EcsTestProject.Systems
                 MoveToTargetComp targetComp = _doorsFilter.Pools.Inc2.Get(doorEnt);
 
                 Vector3 currentPos = positionInfoComp.Position;
-                Vector3 targetPos = targetComp.TargetPosition; //TODO Get height
+                Vector3 targetPos = targetComp.TargetPosition;
+
+                float doorSpeed = _gameData.Value.GameSettings.DoorSpeed;
+                float deltaTime = _gameData.Value.GameSettings.DeltaTime;
                 
-                float t = Vector3.Distance(targetPos ,currentPos) / 0.1f; //TODO Set speed from data
-                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, 1/t * 0.01f);
+                float t = Vector3.Distance(targetPos ,currentPos) / doorSpeed;
+                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, 1/t * deltaTime);
 
                 positionInfoComp.Position = newPos;
             }
