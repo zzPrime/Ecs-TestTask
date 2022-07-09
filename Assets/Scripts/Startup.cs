@@ -82,6 +82,9 @@ namespace EcsTestProject
                 .Add(new SetDoorsTargetSys())
                 .Add(new DoorsMovementRealizationSys())
                 
+                // Common
+                .Add(new CheckMovementCompleteSys())
+                
                 // MonobehViews
                 .Add(new MonobehViewPosUpdateSys())
                 .Inject(_gameData)
