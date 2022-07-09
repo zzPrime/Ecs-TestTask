@@ -27,10 +27,12 @@ namespace EcsTestProject.Systems
                     if (!_moveToTargetCompPool.Value.Has(doorEnt))
                     {
                         ref MoveToTargetComp moveToTargetComp = ref _moveToTargetCompPool.Value.Add(doorEnt);
-                        Vector3 currPos = _doorsFilter.Pools.Inc1.Get(doorEnt).Position;
+                        ref PositionInfoComp positionInfoComp = ref _doorsFilter.Pools.Inc1.Get(doorEnt);
+                        
+                        Vector3 spawnPosition = positionInfoComp.SpawnPosition;
                         float doorHeight = _gameData.Value.GameSettings.DoorHeight;
                         Vector3 targetPos =
-                            currPos - Vector3.UnitY - Vector3.UnitY * doorHeight;
+                            spawnPosition - Vector3.UnitY * doorHeight;
 
                         moveToTargetComp.TargetPosition = targetPos;
                     }

@@ -34,7 +34,8 @@ namespace EcsTestProject.Systems
                 if (_positionInfoCompPool.Value.Has(spawningEnt))
                 {
                     ref PositionInfoComp positionInfoComp = ref _positionInfoCompPool.Value.Get(spawningEnt);
-                    positionInfoComp.Position = Utils.GetNumericsVec3FromUnityVec3(spawnPos);
+                    positionInfoComp.SpawnPosition = Utils.GetNumericsVec3FromUnityVec3(spawnPos);
+                    positionInfoComp.Position = positionInfoComp.SpawnPosition;
                     positionInfoComp.Rotation = Utils.GetNumericsQuatFromUnityQuat(spawnRot);
                 }
                 //TODO Add if animation comp persist

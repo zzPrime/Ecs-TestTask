@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameSettingsSo
   m_EditorClassIdentifier: 
   PlayerMovementSpeed: 2
-  PlayerHeight: 0.5
   PlayerRotationSpeed: 1
-  TriggerDistance: 2
-  DoorSpeed: 0.1
+  TriggerDistance: 0.5
+  DoorSpeed: 0.4
   DoorHeight: 1
+  DestinationReachDistance: 0.01

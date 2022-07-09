@@ -4,6 +4,7 @@ namespace EcsTestProject.Components
 {
     internal struct PositionInfoComp
     {
+        public Vector3 SpawnPosition;
         public Vector3 Position;
         public Quaternion Rotation;
     }
