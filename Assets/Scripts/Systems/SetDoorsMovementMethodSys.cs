@@ -1,4 +1,3 @@
-using System.Numerics;
 using EcsTestProject.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -7,8 +6,8 @@ namespace EcsTestProject.Systems
 {
     internal class SetDoorsMovementMethodSys : IEcsRunSystem
     {
-        private EcsFilterInject<Inc<LinkedObserverComp>, Exc<TranslationMethodComp>> _doorsFilter = default;
-        private EcsPoolInject<TranslationMethodComp> _lerpTagPool = default;
+        private EcsFilterInject<Inc<LinkedObserverComp>, Exc<MovementMethodComp>> _doorsWithoutMovementMethodFilter = default;
+        private EcsPoolInject<MovementMethodComp> _lerpTagPool = default;
 
         public void Run(EcsSystems systems)
         {
@@ -17,10 +16,10 @@ namespace EcsTestProject.Systems
 
         private void AddLerpMovementMethodTag()
         {
-            foreach (var doorEnt in _doorsFilter.Value)
+            foreach (var doorEnt in _doorsWithoutMovementMethodFilter.Value)
             {
-                ref TranslationMethodComp methodComp = ref _lerpTagPool.Value.Add(doorEnt);
-                methodComp.TranslationLogic = TranslationLogic.Lerp;
+                ref MovementMethodComp methodComp = ref _lerpTagPool.Value.Add(doorEnt);
+                methodComp.MovementMethod = TranslationLogic.Lerp;
             }
         }
     }

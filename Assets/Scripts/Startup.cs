@@ -72,7 +72,7 @@ namespace EcsTestProject
                 
                 // Player
                 .Add(new SetPlayerTargetSys())
-                .Add(new SetPlayerMovementMethodSys())
+                .Add(new SetPlayerTranslationMethodSys())
                 
                 // Buttons
                 .Add(new CheckTriggersStateSys())
@@ -84,6 +84,7 @@ namespace EcsTestProject
                 
                 // Common
                 .Add(new MoveByLerpLogicSys())
+                .Add(new RotateByConstantLogicSys())
                 .Add(new CheckMovementCompleteSys())
                 
                 // MonobehViews

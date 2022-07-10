@@ -2,6 +2,6 @@
 {
     internal struct MovementParamsComp
     {
-        public float Speed;
+        public float MovementSpeed;
     }
 }

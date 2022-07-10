@@ -18,6 +18,7 @@ namespace EcsTestProject.Systems
         private EcsPoolInject<LinkByColorComp> _linkByColorCompPool = default;
         private EcsPoolInject<LinkedObserverComp> _linkedObserverCompPool = default;
         private EcsPoolInject<MovementParamsComp> _movementParamsCompPool = default;
+        private EcsPoolInject<RotationParamsComp> _rotationParamsCompPool = default;
         
         private EcsCustomInject<GameData> _levelData = default;
 
@@ -62,8 +63,11 @@ namespace EcsTestProject.Systems
                     _positionInfoCompPool.Value.Add(playerEnt);
                     _canTriggerTagPool.Value.Add(playerEnt);
                     
-                    ref MovementParamsComp paramsComp = ref _movementParamsCompPool.Value.Add(playerEnt);
-                    paramsComp.Speed = _levelData.Value.GameSettings.PlayerMovementSpeed;
+                    ref MovementParamsComp movementparamsComp = ref _movementParamsCompPool.Value.Add(playerEnt);
+                    movementparamsComp.MovementSpeed = _levelData.Value.GameSettings.PlayerMovementSpeed;
+                    
+                    ref RotationParamsComp rotationParamsComp = ref _rotationParamsCompPool.Value.Add(playerEnt);
+                    rotationParamsComp.RotationSpeed = _levelData.Value.GameSettings.PlayerRotationSpeed;
                     
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(playerEnt);
                     spawnComp.Prefab = _levelData.Value.PlayerView;
@@ -87,7 +91,7 @@ namespace EcsTestProject.Systems
                     linkByColorComp.ColorID = element.ColorID;
                     
                     ref MovementParamsComp paramsComp = ref _movementParamsCompPool.Value.Add(doorEnt);
-                    paramsComp.Speed = _levelData.Value.GameSettings.DoorSpeed;
+                    paramsComp.MovementSpeed = _levelData.Value.GameSettings.DoorSpeed;
                     
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(doorEnt);
                     spawnComp.Prefab = element.ElementTf.gameObject;
