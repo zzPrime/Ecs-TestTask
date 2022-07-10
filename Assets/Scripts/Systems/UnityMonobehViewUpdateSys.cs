@@ -5,7 +5,7 @@ using Vector3 = System.Numerics.Vector3;
 
 namespace EcsTestProject.Systems
 {
-    internal class MonobehViewUpdateSys : IEcsRunSystem
+    internal class UnityMonobehViewUpdateSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<MonobehViewComp, PositionInfoComp>> _monobehFilter = default;
         

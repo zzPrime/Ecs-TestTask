@@ -88,10 +88,11 @@ namespace EcsTestProject
                 .Add(new MoveByLerpLogicSys())
                 .Add(new RotateByConstantLogicSys())
                 .Add(new CheckMovementCompleteSys())
+                .Add(new CheckRotationCompleteSys())
                 
                 // MonobehViews
-                .Add(new MonobehViewUpdateSys())
-                .Add(new AnimationMonobehViewUpdateSys())
+                .Add(new UnityMonobehViewUpdateSys())
+                .Add(new UnityAnimationMonobehViewUpdateSys())
                 
                 .Inject(_gameData)
                 .Init();

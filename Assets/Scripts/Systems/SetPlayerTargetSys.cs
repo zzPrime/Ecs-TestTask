@@ -8,6 +8,7 @@ namespace EcsTestProject.Systems
     internal class SetPlayerTargetSys : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
+        
         private EcsFilterInject<Inc<MouseInputComp>> _mouseInputCompFilter = default;
         private EcsFilterInject<Inc<PlayerTag, PositionInfoComp>> _playerFilter = default;
         

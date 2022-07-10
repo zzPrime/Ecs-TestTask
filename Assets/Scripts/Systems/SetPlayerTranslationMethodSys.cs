@@ -15,7 +15,7 @@ namespace EcsTestProject.Systems
         public void Run(EcsSystems systems)
         {
             AddLerpMovementMethodComp();
-            AddLerpRotationMethodTag();
+            AddLerpRotationMethodComp();
         }
 
         private void AddLerpMovementMethodComp()
@@ -27,7 +27,7 @@ namespace EcsTestProject.Systems
             }
         }
 
-        private void AddLerpRotationMethodTag()
+        private void AddLerpRotationMethodComp()
         {
             foreach (var playerEnt in _playerWithoutRotationMethodFilter.Value)
             {

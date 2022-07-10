@@ -8,7 +8,8 @@ namespace EcsTestProject.Systems
     internal class LevelInitializeSys : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
-        private EcsFilterInject<Inc<LevelInstantiatedTag>> _instantiateRequreTagFilter = default;
+        
+        private EcsFilterInject<Inc<LevelInstantiatedTag>> _instantiateRequireTagFilter = default;
         
         private EcsPoolInject<SpawnMbViewComp> _spawnMbViewCompPool = default;
         private EcsPoolInject<PlayerTag> _playerTagPool = default;
@@ -48,7 +49,7 @@ namespace EcsTestProject.Systems
 
         private bool IsInstantiateRequired()
         {
-            return _instantiateRequreTagFilter.Value.GetEntitiesCount() == 0;
+            return _instantiateRequireTagFilter.Value.GetEntitiesCount() == 0;
         }
 
         private void InitializePlayerData()
@@ -121,7 +122,7 @@ namespace EcsTestProject.Systems
         private void SetLevelInstantiate()
         {
             var ent = _world.Value.NewEntity();
-            _instantiateRequreTagFilter.Pools.Inc1.Add(ent);
+            _instantiateRequireTagFilter.Pools.Inc1.Add(ent);
         }
     }
 }

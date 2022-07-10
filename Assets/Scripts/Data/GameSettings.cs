@@ -9,5 +9,6 @@ public class GameSettings : ScriptableObject
     public float DoorSpeed = 0.1f;
     public float DoorHeight = 1f;
     public float DestinationReachDistance = 0.01f;
+    public float StopRotationAngleRad = 0.05f;
     public float DeltaTime => Time.deltaTime;
 }

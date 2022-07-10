@@ -9,6 +9,7 @@ namespace EcsTestProject.Systems
     {
         private EcsFilterInject<Inc<TriggerableComp, PositionInfoComp>, Exc<CanTriggerTag>> _triggerableCompFilter = default;
         private EcsFilterInject<Inc<CanTriggerTag, PositionInfoComp>, Exc<TriggerableComp>> _canTriggerCompFilter = default;
+        
         private EcsCustomInject<GameData> _gameData = default;
 
         public void Run(EcsSystems systems)
@@ -20,7 +21,6 @@ namespace EcsTestProject.Systems
         {
             foreach (var triggerableEnt in _triggerableCompFilter.Value)
             {
-                ref TriggerableComp triggerableComp = ref _triggerableCompFilter.Pools.Inc1.Get(triggerableEnt);
                 bool triggered = false;
                 
                 foreach (var canTriggerEnt in _canTriggerCompFilter.Value)
@@ -38,6 +38,7 @@ namespace EcsTestProject.Systems
                     }
                 }
 
+                ref TriggerableComp triggerableComp = ref _triggerableCompFilter.Pools.Inc1.Get(triggerableEnt);
                 triggerableComp.Triggered = triggered;
             }
         }

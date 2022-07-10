@@ -13,7 +13,7 @@ namespace EcsTestProject.Systems
         public void Run(EcsSystems systems)
         {
             CheckMouseCompExist();
-            GetMouseState();
+            UpdateMouseState();
         }
 
         private void CheckMouseCompExist()
@@ -25,7 +25,7 @@ namespace EcsTestProject.Systems
             }
         }
 
-        private void GetMouseState()
+        private void UpdateMouseState()
         {
             foreach (var mouseInputEnt in _mouseInputCompFilter.Value)
             {

@@ -8,15 +8,16 @@ namespace EcsTestProject.Systems
     internal class MonobehViewSpawnSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<SpawnMbViewComp>> _spawnMbViewCompFilter = default;
+        
         private EcsPoolInject<PositionInfoComp> _positionInfoCompPool = default;
         private EcsPoolInject<MonobehViewComp> monobehViewCompPool = default;
         
         public void Run(EcsSystems systems)
         {
-            SpawnAndBindViews();
+            SpawnViews();
         }
 
-        private void SpawnAndBindViews()
+        private void SpawnViews()
         {
             foreach (var spawningEnt in _spawnMbViewCompFilter.Value)
             {

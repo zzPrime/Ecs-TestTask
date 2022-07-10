@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EcsTestProject.Systems
 {
-    internal class AnimationMonobehViewUpdateSys : IEcsRunSystem
+    internal class UnityAnimationMonobehViewUpdateSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<AnimationMonobehComp, AnimationStateComp>> _animationFilter = default;
 
