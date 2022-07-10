@@ -6,38 +6,26 @@ using Leopotam.EcsLite.Di;
 
 namespace EcsTestProject.Systems
 {
-    internal class PlayerMovementRealizationSys : IEcsRunSystem
+    internal class SetPlayerMovementMethodSys : IEcsRunSystem
     {
-        private EcsWorldInject _world = default;
-        private EcsCustomInject<GameData> _gameData = default;
-        private EcsFilterInject<Inc<PlayerTag, PositionInfoComp, MoveToTargetComp, RotateToTargetComp>> _playerFilter = default;
+        private EcsFilterInject<Inc<PlayerTag>, Exc<MovementMethodTag.Lerp>> _playerFilter = default;
+        private EcsPoolInject<MovementMethodTag.Lerp> _lerpTagPool = default;
 
         public void Run(EcsSystems systems)
         {
-            UpdatePositionByLerpLogic();
-            UpdateRotationByConstSpeedLogic();
+            AddLerpMovementMethodTag();
+            //UpdateRotationByConstSpeedLogic();
         }
 
-        private void UpdatePositionByLerpLogic()
+        private void AddLerpMovementMethodTag()
         {
             foreach (var playerEnt in _playerFilter.Value)
             {
-                ref PositionInfoComp positionInfoComp = ref _playerFilter.Pools.Inc2.Get(playerEnt);
-                MoveToTargetComp targetComp = _playerFilter.Pools.Inc3.Get(playerEnt);
-
-                float playerSpeed = _gameData.Value.GameSettings.PlayerMovementSpeed;
-                float deltaTime = _gameData.Value.GameSettings.DeltaTime;
-                
-                Vector3 currentPos = positionInfoComp.Position;
-                Vector3 targetPos = targetComp.TargetPosition;
-                
-                float t = Vector3.Distance(targetPos ,currentPos) / playerSpeed;
-                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, 1/t * deltaTime);
-
-                positionInfoComp.Position = newPos;
+                _lerpTagPool.Value.Add(playerEnt);
             }
         }
 
+        /*
         private void UpdateRotationByConstSpeedLogic()
         {
             foreach (var playerEnt in _playerFilter.Value)
@@ -75,5 +63,6 @@ namespace EcsTestProject.Systems
 
             return newRotationVector;
         }
+        */
     }
 }

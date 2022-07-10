@@ -72,7 +72,7 @@ namespace EcsTestProject
                 
                 // Player
                 .Add(new SetPlayerTargetSys())
-                .Add(new PlayerMovementRealizationSys())
+                .Add(new SetPlayerMovementMethodSys())
                 
                 // Buttons
                 .Add(new CheckTriggersStateSys())
@@ -80,9 +80,10 @@ namespace EcsTestProject
                 
                 // Doors
                 .Add(new SetDoorsTargetSys())
-                .Add(new DoorsMovementRealizationSys())
+                .Add(new SetDoorsMovementMethodSys())
                 
                 // Common
+                .Add(new MoveByLerpLogicSys())
                 .Add(new CheckMovementCompleteSys())
                 
                 // MonobehViews

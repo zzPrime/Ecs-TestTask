@@ -17,6 +17,7 @@ namespace EcsTestProject.Systems
         private EcsPoolInject<CanTriggerTag> _canTriggerTagPool = default;
         private EcsPoolInject<LinkByColorComp> _linkByColorCompPool = default;
         private EcsPoolInject<LinkedObserverComp> _linkedObserverCompPool = default;
+        private EcsPoolInject<MovementParamsComp> _movementParamsCompPool = default;
         
         private EcsCustomInject<GameData> _levelData = default;
 
@@ -61,6 +62,9 @@ namespace EcsTestProject.Systems
                     _positionInfoCompPool.Value.Add(playerEnt);
                     _canTriggerTagPool.Value.Add(playerEnt);
                     
+                    ref MovementParamsComp paramsComp = ref _movementParamsCompPool.Value.Add(playerEnt);
+                    paramsComp.Speed = _levelData.Value.GameSettings.PlayerMovementSpeed;
+                    
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(playerEnt);
                     spawnComp.Prefab = _levelData.Value.PlayerView;
                     spawnComp.SpawnPosition = element.ElementTf.position;
@@ -81,6 +85,9 @@ namespace EcsTestProject.Systems
 
                     ref LinkByColorComp linkByColorComp = ref _linkByColorCompPool.Value.Add(doorEnt);
                     linkByColorComp.ColorID = element.ColorID;
+                    
+                    ref MovementParamsComp paramsComp = ref _movementParamsCompPool.Value.Add(doorEnt);
+                    paramsComp.Speed = _levelData.Value.GameSettings.DoorSpeed;
                     
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(doorEnt);
                     spawnComp.Prefab = element.ElementTf.gameObject;
