@@ -9,7 +9,7 @@ namespace EcsTestProject.Systems
     {
         private EcsFilterInject<Inc<PositionInfoComp, LinkedObserverComp>, Exc<TriggerableComp>> _doorsFilter = default;
         private EcsPoolInject<MoveToTargetComp> _moveToTargetCompPool = default;
-        private EcsCustomInject<GameData> _gameData = default;
+        private EcsFilterInject<Inc<GameSettingsComp>> _gameSettingsCompFilter = default;
 
         public void Run(EcsSystems systems)
         {
@@ -30,7 +30,7 @@ namespace EcsTestProject.Systems
                         ref PositionInfoComp positionInfoComp = ref _doorsFilter.Pools.Inc1.Get(doorEnt);
                         
                         Vector3 spawnPosition = positionInfoComp.SpawnPosition;
-                        float doorHeight = _gameData.Value.GameSettings.DoorHeight;
+                        float doorHeight = GetDoorHeight();
                         Vector3 targetPos =
                             spawnPosition - Vector3.UnitY * doorHeight;
 
@@ -45,6 +45,16 @@ namespace EcsTestProject.Systems
                     }
                 }
             }
+        }
+        
+        private float GetDoorHeight()
+        {
+            foreach (var settingsEnt in _gameSettingsCompFilter.Value)
+            {
+                return _gameSettingsCompFilter.Pools.Inc1.Get(settingsEnt).DoorSettings.DoorHeight;
+            }
+
+            return default;
         }
     }
 }

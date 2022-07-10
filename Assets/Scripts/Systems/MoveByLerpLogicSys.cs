@@ -9,7 +9,7 @@ namespace EcsTestProject.Systems
     {
         private EcsFilterInject<
             Inc<MovementMethodComp, PositionInfoComp, MoveToTargetComp, MovementParamsComp>> _movingObjFilter = default;
-        private EcsCustomInject<GameData> _gameData = default;
+        private EcsFilterInject<Inc<GameSettingsComp>> _gameSettingsCompFilter = default;
         
         public void Run(EcsSystems systems)
         {
@@ -32,7 +32,7 @@ namespace EcsTestProject.Systems
                 MovementParamsComp paramsComp = _movingObjFilter.Pools.Inc4.Get(movingEnt);
 
                 float speed = paramsComp.MovementSpeed;
-                float deltaTime = _gameData.Value.GameSettings.DeltaTime;
+                float deltaTime = GetDeltaTime();
                 
                 Vector3 currentPos = positionInfoComp.Position;
                 Vector3 targetPos = targetComp.TargetPosition;
@@ -42,6 +42,16 @@ namespace EcsTestProject.Systems
 
                 positionInfoComp.Position = newPos;
             }
+        }
+        
+        private float GetDeltaTime()
+        {
+            foreach (var settingsEnt in _gameSettingsCompFilter.Value)
+            {
+                return _gameSettingsCompFilter.Pools.Inc1.Get(settingsEnt).CommonSettings.DeltaTime;
+            }
+
+            return default;
         }
     }
 }

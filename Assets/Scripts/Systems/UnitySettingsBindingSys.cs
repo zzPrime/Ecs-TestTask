@@ -65,6 +65,7 @@ namespace EcsTestProject.Systems
             DoorSettings doorSettings = new DoorSettings();
             doorSettings.DoorSpeed = gameSettings.DoorSpeed;
             doorSettings.DoorHeight = gameSettings.DoorHeight;
+            return doorSettings;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace EcsTestProject.Systems
     internal class CheckRotationCompleteSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<PositionInfoComp, RotateToTargetComp>> _rotatingObjFilter = default;
-        private EcsCustomInject<GameData> _gameData = default;
+        private EcsFilterInject<Inc<GameSettingsComp>> _gameSettingsCompFilter = default;
         
         public void Run(EcsSystems systems)
         {
@@ -29,11 +29,21 @@ namespace EcsTestProject.Systems
                 var cos = Vector3.Dot(currentRotVec, targetRotVec) / (currentRotVec.Length() * targetRotVec.Length());
                 var angleInRad = Math.Acos(cos);
 
-                if (angleInRad < _gameData.Value.GameSettings.StopRotationAngleRad)
+                if (angleInRad < GetStopRotationAngleRad())
                 {
                     _rotatingObjFilter.Pools.Inc2.Del(rotatingEnt);
                 }
             }
+        }
+        
+        private float GetStopRotationAngleRad()
+        {
+            foreach (var settingsEnt in _gameSettingsCompFilter.Value)
+            {
+                return _gameSettingsCompFilter.Pools.Inc1.Get(settingsEnt).CommonSettings.StopRotationAngleRad;
+            }
+
+            return default;
         }
     }
 }

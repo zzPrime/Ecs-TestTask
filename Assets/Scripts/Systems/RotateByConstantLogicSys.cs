@@ -10,7 +10,7 @@ namespace EcsTestProject.Systems
         private EcsFilterInject<
             Inc<RotationMethodComp, PositionInfoComp, RotationParamsComp, RotateToTargetComp>> _rotatingObjFilter = default;
 
-        private EcsCustomInject<GameData> _gameData = default;
+        private EcsFilterInject<Inc<GameSettingsComp>> _gameSettingsCompFilter = default;
 
         public void Run(EcsSystems systems)
         {
@@ -45,7 +45,7 @@ namespace EcsTestProject.Systems
             Vector3 targetRotVec = rotateToTargetComp.TargetRotationVector;
 
             Vector3 crossProduct = Vector3.Cross(currentRotVec, targetRotVec);
-            float rotationSpeed = rotationParamsComp.RotationSpeed * _gameData.Value.GameSettings.DeltaTime;
+            float rotationSpeed = rotationParamsComp.RotationSpeed * GetDeltaTime();
             
             if (crossProduct.Y < 0f)
             {
@@ -56,6 +56,16 @@ namespace EcsTestProject.Systems
             var newRotationVector = Vector3.Transform(currentRotVec, rotQuat);
 
             return newRotationVector;
+        }
+        
+        private float GetDeltaTime()
+        {
+            foreach (var settingsEnt in _gameSettingsCompFilter.Value)
+            {
+                return _gameSettingsCompFilter.Pools.Inc1.Get(settingsEnt).CommonSettings.DeltaTime;
+            }
+
+            return default;
         }
     }
 }

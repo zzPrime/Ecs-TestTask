@@ -65,7 +65,7 @@ namespace EcsTestProject
 #endif
                 // Initialization
                 .Add(new UnitySettingsBindingSys())
-                .Add(new LevelInitializeSys())
+                .Add(new UnityLevelInitializeSys())
                 .Add(new UnityMonobehViewSpawnSys())
                 .Add(new UnityBindSpawnedMonobehsSys())
                 

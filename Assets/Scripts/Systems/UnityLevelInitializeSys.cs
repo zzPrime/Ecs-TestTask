@@ -5,7 +5,7 @@ using Leopotam.EcsLite.Di;
 
 namespace EcsTestProject.Systems
 {
-    internal class LevelInitializeSys : IEcsRunSystem
+    internal class UnityLevelInitializeSys : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
         
