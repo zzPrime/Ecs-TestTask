@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 using EcsTestProject.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -45,16 +44,9 @@ namespace EcsTestProject.Systems
             Vector3 currentRotVec = positionInfoComp.RotationVector;
             Vector3 targetRotVec = rotateToTargetComp.TargetRotationVector;
 
-            var cos = Vector3.Dot(currentRotVec, targetRotVec) / (currentRotVec.Length() * targetRotVec.Length());
-            var angleInRad = Math.Acos(cos);
-
-            if (angleInRad < 0.05f) // TODO Delete rotation comp when target achieved
-            {
-                return currentRotVec;
-            }
-
             Vector3 crossProduct = Vector3.Cross(currentRotVec, targetRotVec);
             float rotationSpeed = rotationParamsComp.RotationSpeed * _gameData.Value.GameSettings.DeltaTime;
+            
             if (crossProduct.Y < 0f)
             {
                 rotationSpeed *= -1;
