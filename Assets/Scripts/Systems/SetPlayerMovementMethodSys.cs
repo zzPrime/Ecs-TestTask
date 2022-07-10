@@ -8,8 +8,8 @@ namespace EcsTestProject.Systems
 {
     internal class SetPlayerMovementMethodSys : IEcsRunSystem
     {
-        private EcsFilterInject<Inc<PlayerTag>, Exc<MovementMethodTag.Lerp>> _playerFilter = default;
-        private EcsPoolInject<MovementMethodTag.Lerp> _lerpTagPool = default;
+        private EcsFilterInject<Inc<PlayerTag>, Exc<TranslationMethodComp>> _playerFilter = default;
+        private EcsPoolInject<TranslationMethodComp> _lerpTagPool = default;
 
         public void Run(EcsSystems systems)
         {
@@ -21,7 +21,8 @@ namespace EcsTestProject.Systems
         {
             foreach (var playerEnt in _playerFilter.Value)
             {
-                _lerpTagPool.Value.Add(playerEnt);
+                ref TranslationMethodComp methodComp = ref _lerpTagPool.Value.Add(playerEnt);
+                methodComp.TranslationLogic = TranslationLogic.Lerp;
             }
         }
 

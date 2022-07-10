@@ -8,7 +8,7 @@ namespace EcsTestProject.Systems
     internal class MoveByLerpLogicSys : IEcsRunSystem
     {
         private EcsFilterInject<
-            Inc<PositionInfoComp, MoveToTargetComp, MovementParamsComp, MovementMethodTag.Lerp>> _lerpMovingFilter = default;
+            Inc<TranslationMethodComp, PositionInfoComp, MoveToTargetComp, MovementParamsComp>> _movingObjFilter = default;
         private EcsCustomInject<GameData> _gameData = default;
         
         public void Run(EcsSystems systems)
@@ -18,11 +18,18 @@ namespace EcsTestProject.Systems
 
         private void UpdatePositionByLerpLogic()
         {
-            foreach (var movingEnt in _lerpMovingFilter.Value)
+            foreach (var movingEnt in _movingObjFilter.Value)
             {
-                ref PositionInfoComp positionInfoComp = ref _lerpMovingFilter.Pools.Inc1.Get(movingEnt);
-                MoveToTargetComp targetComp = _lerpMovingFilter.Pools.Inc2.Get(movingEnt);
-                MovementParamsComp paramsComp = _lerpMovingFilter.Pools.Inc3.Get(movingEnt);
+                TranslationMethodComp methodComp = _movingObjFilter.Pools.Inc1.Get(movingEnt);
+
+                if (methodComp.TranslationLogic != TranslationLogic.Lerp)
+                {
+                    continue;
+                }
+
+                ref PositionInfoComp positionInfoComp = ref _movingObjFilter.Pools.Inc2.Get(movingEnt);
+                MoveToTargetComp targetComp = _movingObjFilter.Pools.Inc3.Get(movingEnt);
+                MovementParamsComp paramsComp = _movingObjFilter.Pools.Inc4.Get(movingEnt);
 
                 float speed = paramsComp.Speed;
                 float deltaTime = _gameData.Value.GameSettings.DeltaTime;

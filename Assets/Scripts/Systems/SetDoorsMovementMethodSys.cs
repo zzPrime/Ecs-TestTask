@@ -7,8 +7,8 @@ namespace EcsTestProject.Systems
 {
     internal class SetDoorsMovementMethodSys : IEcsRunSystem
     {
-        private EcsFilterInject<Inc<LinkedObserverComp>, Exc<MovementMethodTag.Lerp>> _doorsFilter = default;
-        private EcsPoolInject<MovementMethodTag.Lerp> _lerpTagPool = default;
+        private EcsFilterInject<Inc<LinkedObserverComp>, Exc<TranslationMethodComp>> _doorsFilter = default;
+        private EcsPoolInject<TranslationMethodComp> _lerpTagPool = default;
 
         public void Run(EcsSystems systems)
         {
@@ -19,7 +19,8 @@ namespace EcsTestProject.Systems
         {
             foreach (var doorEnt in _doorsFilter.Value)
             {
-                _lerpTagPool.Value.Add(doorEnt);
+                ref TranslationMethodComp methodComp = ref _lerpTagPool.Value.Add(doorEnt);
+                methodComp.TranslationLogic = TranslationLogic.Lerp;
             }
         }
     }
