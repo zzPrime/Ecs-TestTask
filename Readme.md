@@ -2,27 +2,27 @@
 
 Ecs системы которые отвечают за расчёт логики, не зависят от Unity и могут быть запущены на сервере (при условии наличия на нём Leopotam.EcsLite и Leopotam.EcsLite.Di):
 
-SetPlayerTargetSys
-SetPlayerTranslationMethodSys
-SetPlayerAnimationStateSys
-CheckTriggersStateSys
-SetLinkedObserverStateSys
-SetDoorsTargetSys
-SetDoorsMovementMethodSys
-MoveByLerpLogicSys
-RotateByConstantLogicSys
-CheckMovementCompleteSys
-CheckRotationCompleteSys
+- SetPlayerTargetSys
+- SetPlayerTranslationMethodSys
+- SetPlayerAnimationStateSys
+- CheckTriggersStateSys
+- SetLinkedObserverStateSys
+- SetDoorsTargetSys
+- SetDoorsMovementMethodSys
+- MoveByLerpLogicSys
+- RotateByConstantLogicSys
+- CheckMovementCompleteSys
+- CheckRotationCompleteSys
 
 Системы для работы которых нужна развёрнутая Unity:
 
-UnitySettingsBindingSys
-UnityLevelInitializeSys
-UnityMonobehViewSpawnSys
-UnityBindSpawnedMonobehsSys
-UnityMouseInputSys
-UnityMonobehViewUpdateSys
-UnityAnimationMonobehViewUpdateSys
+- UnitySettingsBindingSys
+- UnityLevelInitializeSys
+- UnityMonobehViewSpawnSys
+- UnityBindSpawnedMonobehsSys
+- UnityMouseInputSys
+- UnityMonobehViewUpdateSys
+- UnityAnimationMonobehViewUpdateSys
 
 Ссылка на видео:
 https://drive.google.com/file/d/1_pkHBPUygltDreSY68K8zM9g98QZO3nR/view?usp=sharing
