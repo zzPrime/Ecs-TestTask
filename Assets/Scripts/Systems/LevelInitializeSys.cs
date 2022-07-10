@@ -11,7 +11,6 @@ namespace EcsTestProject.Systems
         private EcsFilterInject<Inc<LevelInstantiatedTag>> _instantiateRequreTagFilter = default;
         
         private EcsPoolInject<SpawnMbViewComp> _spawnMbViewCompPool = default;
-        private EcsPoolInject<PositionInfoComp> _positionInfoCompPool = default;
         private EcsPoolInject<PlayerTag> _playerTagPool = default;
         private EcsPoolInject<TriggerableComp> _triggerableCompPool = default;
         private EcsPoolInject<CanTriggerTag> _canTriggerTagPool = default;
@@ -60,7 +59,6 @@ namespace EcsTestProject.Systems
                 {
                     var playerEnt = _world.Value.NewEntity();
                     _playerTagPool.Value.Add(playerEnt);
-                    _positionInfoCompPool.Value.Add(playerEnt);
                     _canTriggerTagPool.Value.Add(playerEnt);
                     
                     ref MovementParamsComp movementparamsComp = ref _movementParamsCompPool.Value.Add(playerEnt);
@@ -70,7 +68,7 @@ namespace EcsTestProject.Systems
                     rotationParamsComp.RotationSpeed = _levelData.Value.GameSettings.PlayerRotationSpeed;
                     
                     ref SpawnMbViewComp spawnComp = ref _spawnMbViewCompPool.Value.Add(playerEnt);
-                    spawnComp.Prefab = _levelData.Value.PlayerView;
+                    spawnComp.Prefab = _levelData.Value.PlayerView.Transform.gameObject;
                     spawnComp.SpawnPosition = element.ElementTf.position;
                     spawnComp.SpawnRotation = element.ElementTf.rotation;
                 }
@@ -84,7 +82,6 @@ namespace EcsTestProject.Systems
                 if (element.LevelElementType == LevelElementType.Door)
                 {
                     var doorEnt = _world.Value.NewEntity();
-                    _positionInfoCompPool.Value.Add(doorEnt);
                     _linkedObserverCompPool.Value.Add(doorEnt);
 
                     ref LinkByColorComp linkByColorComp = ref _linkByColorCompPool.Value.Add(doorEnt);
@@ -108,7 +105,6 @@ namespace EcsTestProject.Systems
                 if (element.LevelElementType == LevelElementType.Button)
                 {
                     var buttonEnt = _world.Value.NewEntity();
-                    _positionInfoCompPool.Value.Add(buttonEnt);
                     _triggerableCompPool.Value.Add(buttonEnt);
                     
                     ref LinkByColorComp linkByColorComp = ref _linkByColorCompPool.Value.Add(buttonEnt);
@@ -118,7 +114,6 @@ namespace EcsTestProject.Systems
                     spawnComp.Prefab = element.ElementTf.gameObject;
                     spawnComp.SpawnPosition = element.ElementTf.position;
                     spawnComp.SpawnRotation = element.ElementTf.rotation;
-                    
                 }
             }
         }

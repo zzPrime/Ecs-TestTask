@@ -66,6 +66,7 @@ namespace EcsTestProject
                 // Initialization
                 .Add(new LevelInitializeSys())
                 .Add(new MonobehViewSpawnSys())
+                .Add(new BindSpawnedMonobehsSys())
                 
                 // Services
                 .Add(new UnityMouseInputSys())
@@ -73,6 +74,7 @@ namespace EcsTestProject
                 // Player
                 .Add(new SetPlayerTargetSys())
                 .Add(new SetPlayerTranslationMethodSys())
+                .Add(new SetPlayerAnimationStateSys())
                 
                 // Buttons
                 .Add(new CheckTriggersStateSys())
@@ -89,6 +91,8 @@ namespace EcsTestProject
                 
                 // MonobehViews
                 .Add(new MonobehViewUpdateSys())
+                .Add(new AnimationMonobehViewUpdateSys())
+                
                 .Inject(_gameData)
                 .Init();
         }

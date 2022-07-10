@@ -31,15 +31,6 @@ namespace EcsTestProject.Systems
                 ref MonobehViewComp monobehViewComp = ref monobehViewCompPool.Value.Add(spawningEnt);
                 monobehViewComp.ViewTf = spawnedGO.transform;
 
-                if (_positionInfoCompPool.Value.Has(spawningEnt))
-                {
-                    ref PositionInfoComp positionInfoComp = ref _positionInfoCompPool.Value.Get(spawningEnt);
-                    positionInfoComp.SpawnPosition = Utils.GetNumericsVec3FromUnityVec3(spawnPos);
-                    positionInfoComp.Position = positionInfoComp.SpawnPosition;
-                    positionInfoComp.RotationVector = Utils.GetNumericsVec3FromUnityVec3(spawnedGO.transform.forward);
-                }
-                //TODO Add if animation comp persist
-
                 _spawnMbViewCompFilter.Pools.Inc1.Del(spawningEnt);
             }
         }
