@@ -86,7 +86,7 @@ namespace EcsTestProject
                 .Add(new CheckMovementCompleteSys())
                 
                 // MonobehViews
-                .Add(new MonobehViewPosUpdateSys())
+                .Add(new MonobehViewUpdateSys())
                 .Inject(_gameData)
                 .Init();
         }

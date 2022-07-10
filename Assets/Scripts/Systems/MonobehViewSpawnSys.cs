@@ -36,7 +36,7 @@ namespace EcsTestProject.Systems
                     ref PositionInfoComp positionInfoComp = ref _positionInfoCompPool.Value.Get(spawningEnt);
                     positionInfoComp.SpawnPosition = Utils.GetNumericsVec3FromUnityVec3(spawnPos);
                     positionInfoComp.Position = positionInfoComp.SpawnPosition;
-                    positionInfoComp.Rotation = Utils.GetNumericsQuatFromUnityQuat(spawnRot);
+                    positionInfoComp.RotationVector = Utils.GetNumericsVec3FromUnityVec3(spawnedGO.transform.forward);
                 }
                 //TODO Add if animation comp persist
 

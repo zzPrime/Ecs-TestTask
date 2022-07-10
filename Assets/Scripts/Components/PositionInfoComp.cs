@@ -6,6 +6,6 @@ namespace EcsTestProject.Components
     {
         public Vector3 SpawnPosition;
         public Vector3 Position;
-        public Quaternion Rotation;
+        public Vector3 RotationVector;
     }
 }

@@ -1,3 +1,4 @@
+using System.Numerics;
 using EcsTestProject.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -11,6 +12,7 @@ namespace EcsTestProject.Systems
         private EcsFilterInject<Inc<PlayerTag, PositionInfoComp>> _playerFilter = default;
         
         private EcsPoolInject<MoveToTargetComp> _moveToTargetPool = default;
+        private EcsPoolInject<RotateToTargetComp> _rotateToTargetPool = default;
         
         public void Run(EcsSystems systems)
         {
@@ -28,7 +30,9 @@ namespace EcsTestProject.Systems
                     if (mouseComp.IsPressed && mouseComp.IsRaycasting)
                     {
                         TryAddMoveToTargetComp(playerEnt);
+                        TryAddRotateToTargetComp(playerEnt);
                         UpdateTargetPosition(playerEnt, mouseComp);
+                        UpdateTargetRotation(playerEnt);
                     }
                 }
             }
@@ -42,10 +46,28 @@ namespace EcsTestProject.Systems
             }
         }
         
+        private void TryAddRotateToTargetComp(int playerEnt)
+        {
+            if (!_rotateToTargetPool.Value.Has(playerEnt))
+            {
+                _rotateToTargetPool.Value.Add(playerEnt);
+            }
+        }
+        
         private void UpdateTargetPosition(int playerEnt, MouseInputComp mouseComp)
         {
             ref MoveToTargetComp moveToTargetComp = ref _moveToTargetPool.Value.Get(playerEnt);
             moveToTargetComp.TargetPosition = mouseComp.LastPressedPos;
+        }
+        
+        private void UpdateTargetRotation(int playerEnt)
+        {
+            ref MoveToTargetComp moveToTargetComp = ref _moveToTargetPool.Value.Get(playerEnt);
+            ref RotateToTargetComp rotateToTargetComp = ref _rotateToTargetPool.Value.Get(playerEnt);
+            PositionInfoComp positionComp = _playerFilter.Pools.Inc2.Get(playerEnt);
+
+            Vector3 targetVec = moveToTargetComp.TargetPosition - positionComp.Position;
+            rotateToTargetComp.TargetRotationVector = targetVec;
         }
     }
 }

@@ -13,10 +13,4 @@ public static class Utils
         var unityVec3 = new System.Numerics.Vector3(uniVec3.x, uniVec3.y, uniVec3.z);
         return unityVec3;
     }
-    
-    public static System.Numerics.Quaternion GetNumericsQuatFromUnityQuat(Quaternion uniQuat)
-    {
-        var numQuat = new System.Numerics.Quaternion(uniQuat.x, uniQuat.y, uniQuat.z, uniQuat.w);
-        return numQuat;
-    }
 }
