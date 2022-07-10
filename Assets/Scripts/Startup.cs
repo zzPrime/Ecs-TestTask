@@ -64,9 +64,10 @@ namespace EcsTestProject
                 .Add(new EcsWorldDebugSystem())
 #endif
                 // Initialization
+                .Add(new UnitySettingsBindingSys())
                 .Add(new LevelInitializeSys())
                 .Add(new UnityMonobehViewSpawnSys())
-                .Add(new BindSpawnedMonobehsSys())
+                .Add(new UnityBindSpawnedMonobehsSys())
                 
                 // Services
                 .Add(new UnityMouseInputSys())

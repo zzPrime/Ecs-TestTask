@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EcsTestProject.Systems
 {
-    internal class BindSpawnedMonobehsSys : IEcsRunSystem
+    internal class UnityBindSpawnedMonobehsSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<MonobehViewComp>, Exc<PositionInfoComp>> _needToBindMonobehFilter;
 
