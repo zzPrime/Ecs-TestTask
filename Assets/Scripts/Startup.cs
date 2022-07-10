@@ -65,7 +65,7 @@ namespace EcsTestProject
 #endif
                 // Initialization
                 .Add(new LevelInitializeSys())
-                .Add(new MonobehViewSpawnSys())
+                .Add(new UnityMonobehViewSpawnSys())
                 .Add(new BindSpawnedMonobehsSys())
                 
                 // Services

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EcsTestProject.Systems
 {
-    internal class MonobehViewSpawnSys : IEcsRunSystem
+    internal class UnityMonobehViewSpawnSys : IEcsRunSystem
     {
         private EcsFilterInject<Inc<SpawnMbViewComp>> _spawnMbViewCompFilter = default;
         

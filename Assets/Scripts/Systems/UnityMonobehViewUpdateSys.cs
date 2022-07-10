@@ -1,7 +1,7 @@
+using System.Numerics;
 using EcsTestProject.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using Vector3 = System.Numerics.Vector3;
 
 namespace EcsTestProject.Systems
 {
