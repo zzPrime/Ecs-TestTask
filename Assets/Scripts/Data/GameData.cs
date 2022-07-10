@@ -7,6 +7,6 @@ using UnityEngine;
 public class GameData : ScriptableObject
 {
     public LevelView LevelView;
-    public GameObject PlayerView;
+    public PlayerView PlayerView;
     public GameSettings GameSettings;
 }
